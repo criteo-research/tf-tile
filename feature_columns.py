@@ -11,15 +11,15 @@ tf.logging.set_verbosity(tf.logging.INFO)
 
 HDFS_DIR="tmp"
 numTilings=10
-num_buckets = 20
-batch_size = 64
+num_buckets = 10
+batch_size = 32
 tiled_feature_column_list = []
 for key in winequality.FEATURES:
 
     tiled_feature_column_list.append(
                         tf.feature_column.indicator_column(tf.feature_column.categorical_column_with_identity(
                         key,
-                        num_buckets=numTilings*(num_buckets+1)
+                        num_buckets=numTilings*num_buckets+2
                         ))
                         )
 
@@ -30,22 +30,32 @@ params={
         'n_classes': winequality.get_n_classes()
         }
 
+summary_writer = tf.summary.FileWriter(HDFS_DIR, graph=tf.get_default_graph())
 def example_model_fn(features,labels,mode, params):
     data_in = tf.feature_column.input_layer(features, params['feature_columns'])
     logits = tf.layers.dense(data_in, units=winequality.get_n_classes(), activation=tf.nn.sigmoid)
     loss =  tf.losses.sparse_softmax_cross_entropy(labels=labels, logits=logits)
-    optimizer = tf.train.AdamOptimizer()
+    
+    metrics = {'loss': loss}
+    tf.summary.scalar('loss',loss)
+
+    if mode == tf.estimator.ModeKeys.EVAL:
+        return tf.estimator.EstimatorSpec(
+                                        mode, loss=loss, eval_metric_ops=metrics)
+    optimizer = tf.train.AdagradOptimizer(learning_rate=0.001)
     train_op = optimizer.minimize(loss, global_step=tf.train.get_global_step())
+
+    
 
     return tf.estimator.EstimatorSpec(mode, loss=loss, train_op=train_op)
 
+estimator = tf.estimator.Estimator(model_fn=example_model_fn, params=params)
+estimator.train(input_fn=lambda: input_func.train_input_fn(batch_size,num_buckets,numTilings),steps=100000)   
+eval_result= estimator.evaluate(input_fn=lambda: input_func.eval_input_fn(batch_size,num_buckets,numTilings))   
+print('\nTest set accuracy: {accuracy:0.3f}\n'.format(**eval_result))
 
-    
-classifier = tf.estimator.Estimator(model_fn=example_model_fn, params=params)
-classifier.train(input_fn=lambda: input_func.train_input_fn(batch_size,num_buckets,numTilings),steps=100000)   
-
-#train_spec= tf.estimator.TrainSpec(train_input_fn, max_steps=1000)
-#eval_spec = tf.estimator.EvalSpec(train_input_fn,steps=100,start_delay_secs=0,throttle_secs=30)
+#train_spec= tf.estimator.TrainSpec(input_fn=lambda: input_func.train_input_fn(batch_size,num_buckets,numTilings), max_steps=100000)
+#eval_spec = tf.estimator.EvalSpec(input_fn=lambda: input_func.eval_input_fn(batch_size,num_buckets,numTilings),steps=100,start_delay_secs=0,throttle_secs=30)
 #tf.estimator.train_and_evaluate(estimator,train_spec, eval_spec)
 # def get_feature_columns():
 #     return [tf.feature_column.numeric_column(name) for name in FEATURES]

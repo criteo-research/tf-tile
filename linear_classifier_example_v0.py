@@ -59,8 +59,10 @@ def experiment_fn():
     estimator = tf.estimator.LinearClassifier(
                                 feature_columns=winequality.get_feature_columns(),
                                 model_dir=f"{HDFS_DIR}",
-                                n_classes=winequality.get_n_classes())
-    train_spec= tf.estimator.TrainSpec(train_input_fn, max_steps=1000)
+                                n_classes=winequality.get_n_classes(),
+                                optimizer = tf.train.AdagradOptimizer(learning_rate=0.001)
+                                )
+    train_spec= tf.estimator.TrainSpec(train_input_fn, max_steps=1000000)
     eval_spec = tf.estimator.EvalSpec(eval_input_fn,steps=100,start_delay_secs=0,throttle_secs=30)
 
     return estimator,train_spec, eval_spec
@@ -73,7 +75,8 @@ if __name__ == "__main__":
     # for i in range(10):
     #     print(sess.run(iterator))
     estimator,train_spec, eval_spec = experiment_fn()
-    tf.estimator.train_and_evaluate(estimator,train_spec, eval_spec)
+    estimator.train(input_fn=lambda: train_input_fn(),steps=100000)
+    #tf.estimator.train_and_evaluate(estimator,train_spec, eval_spec)
     
     
 

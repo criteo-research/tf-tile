@@ -6,8 +6,7 @@ FEATURES = [
 'fixed_acidity','volatile_acidity','citric_acid','residual_sugar','chlorides','free_sulfur_dioxide',
 'total_sulfur_dioxide','density','pH','sulphates','alcohol'
 ]
-FILE_NAME="winequality-red.csv" #"cleaned-winequality-red.csv"
-LABEL = "category" #"quality"
+LABEL = "quality"
 
 
 def get_train_eval_datasets(
@@ -15,8 +14,11 @@ def get_train_eval_datasets(
     train_fraction: float = 0.7
 ) -> typing.Tuple[tf.data.Dataset, tf.data.Dataset]:
     def split_label(*row):
-
-        return dict(zip(FEATURES, row)), row[-1]
+        if row[-1]>5:
+            label = 1
+        else:
+            label 0
+        return dict(zip(FEATURES, row)), label
 
     def in_training_set(*row):
         num_buckets = 1000
@@ -29,7 +31,7 @@ def get_train_eval_datasets(
 
     data = tf.data.experimental.CsvDataset(
         path,
-        [tf.float32] * len(FEATURES) +[tf.int32],
+        [tf.float32] * len(FEATURES) + [tf.int32],
         header=True,
         field_delim=";")
 
@@ -43,4 +45,4 @@ def get_feature_columns():
 
 
 def get_n_classes():
-    return 9
+    return 2
