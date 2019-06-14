@@ -22,6 +22,13 @@ import tiled_feature_columns
 
 tiled_feature_column_list = tiled_feature_columns.get_tiled_feature_columns(numTilings,num_buckets,winequality.FEATURES)
 ```
+Custom Estimator Model function for logistic regression or DNNs is provided:
+
+```
+def model_fn(features,labels,mode, params):
+  loss = ...
+  return tf.estimator.EstimatorSpec(mode, loss=loss)
+```
 
 
 ```
