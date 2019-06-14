@@ -17,7 +17,7 @@ b. numTilings
 3. import tiled_feature_columns and then write
 
 tiled_feature_column_list = tiled_feature_columns.get_tiled_feature_columns(numTilings,num_buckets,winequality.FEATURES)
-
+''''
 #parameter input to model_fn used in estimator class
 params={
         'feature_columns': tiled_feature_column_list,
@@ -25,7 +25,7 @@ params={
         'n_classes': winequality.get_n_classes(),
         #'weight_size':11*(num_buckets*numTilings+2)
         }
-
+''''
 
 Then using estimators as follows should allow to run your experiment and then you should be able to observe the loss function through tensorboard as shown bellow
 
