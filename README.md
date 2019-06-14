@@ -30,6 +30,7 @@ def model_fn(features,labels,mode, params):
   return tf.estimator.EstimatorSpec(mode, loss=loss)
 ```
 
+where
 
 ```
 #parameter input to model_fn used in estimator class
