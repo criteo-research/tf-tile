@@ -45,7 +45,7 @@ Then using estimators as follows should allow to run your experiment and then yo
 
 ```
 estimator = tf.estimator.Estimator(model_fn=example_model_fn, params=params, model_dir=MODEL_DIR)
-train_spec= tf.estimator.TrainSpec(input_fn=lambda: input_func.train_input_fn(batch_size,num_buckets,numTilings),max_steps=40000)
-eval_spec = tf.estimator.EvalSpec(input_fn=lambda: input_func.eval_input_fn(batch_size,num_buckets,numTilings),steps=100,start_delay_secs=0,throttle_secs=30)
+train_spec= tf.estimator.TrainSpec(input_fn=lambda: input_func.train_input_fn(batch_size,num_buckets,numTilings),max_steps=max_steps)
+eval_spec = tf.estimator.EvalSpec(input_fn=lambda: input_func.eval_input_fn(batch_size,num_buckets,numTilings),steps=steps,start_delay_secs=0,throttle_secs=30)
 tf.estimator.train_and_evaluate(estimator,train_spec, eval_spec)
 ```
