@@ -24,7 +24,6 @@ def get_binarized_per_feature(input_data,list_boundaries:List[List[float]]):
     a_bucket = []
     input_tensor = tf.cast(input_data, tf.float64)
     for i,a_boundaries in enumerate(list_boundaries):
-        print("i, a_boundaries", i, a_boundaries)
         bucketized_tensor = math_ops.bucketize(input_tensor, a_boundaries)
         bucketized_tensor = tf.reshape(bucketized_tensor, (-1, 1))
         bucketized_tensor = tf.math.add(bucketized_tensor,i*(len(a_boundaries)-1)) #added this 
@@ -41,3 +40,15 @@ def get_all_sparse_tilings(features,feature_name_range,n_buckets,numTilings):
 		features_sparse_tilings[feature_name]=binary_features
 
 	return features_sparse_tilings
+
+def get_tiled_feature_columns(numTilings,num_buckets, feature_var_list):
+
+	tiled_feature_column_list = []
+	for key in feature_var_list:
+		tiled_feature_column_list.append(
+	                        tf.feature_column.indicator_column(tf.feature_column.categorical_column_with_identity(
+	                        key,
+	                        num_buckets=numTilings*num_buckets+2
+	                        ))
+	                        )
+	return tiled_feature_column_list
