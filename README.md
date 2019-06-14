@@ -15,10 +15,14 @@ b. numTilings
 2. we have provide a custom estimator model functions,  model_func.py code that can be used for logistic regression or DNNs
 
 3. import tiled_feature_columns and then write
+
+
 ```
 import tiled_feature_columns 
+
 tiled_feature_column_list = tiled_feature_columns.get_tiled_feature_columns(numTilings,num_buckets,winequality.FEATURES)
 ```
+
 
 ```
 #parameter input to model_fn used in estimator class
