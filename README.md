@@ -18,6 +18,18 @@ then set the num_buckets (e.g. 10) and num_tilings (e.g. 10) for your feature va
 tiled_feature_column_list = tiled_feature_columns.get_tiled_feature_columns(num_tilings,num_buckets,FEATURES)
 ```
 
+this feature_column can be passed into params dictionary that will be used in TF estimator class. For example, for the case of calssification using
+logisitic regression in custom estimators with num_classes, we can set:
+
+```
+params={
+        'feature_columns': tiled_feature_column_list,
+        'hidden_units': None,
+        'n_classes': num_classes
+        }
+```
+
+
 Here, we provide a template on how to use the tile-coding for your real-valued input data and also we have provide an example, wine_quality_example.py for empirical
 test on UCI winequality dataset.
 
