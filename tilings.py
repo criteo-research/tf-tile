@@ -1,3 +1,8 @@
+'''
+Here we provide the key functions for tile-coding. To avoid huge dimensionality expansion, we have tiled
+per feature variable, but using feature-column cross functionality a pair of feature-variables
+also can be tiled, and also higher orders.
+'''
 from typing import Dict,List
 import tensorflow as tf
 import numpy as np
