@@ -25,7 +25,7 @@ logisitic regression using custom estimators with num_classes, we can set:
 params={
         'feature_columns': tiled_feature_column_list,
         'hidden_units': None,
-        'n_classes': num_classes
+        'num_classes': num_classes
         }
 
 estimator = tf.estimator.Estimator(model_fn=example_model_fn, params=params, model_dir=MODEL_DIR)
