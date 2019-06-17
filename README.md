@@ -49,7 +49,7 @@ import tiled_feature_columns
 
 tiled_feature_column_list = tiled_feature_columns.get_tiled_feature_columns(numTilings,num_buckets,FEATURES)
 ```
-Custom Estimator Model function for logistic regression or DNNs is provided:
+Custom Estimator Model function for logistic regression or DNNs (in example_model_fn) is provided:
 
 ```
 def model_fn(features,labels,mode, params):
@@ -66,6 +66,8 @@ params={
         'hidden_units': None,
         'n_classes': winequality.get_n_classes(),
         }
+
+estimator = tf.estimator.Estimator(model_fn=example_model_fn, params=params, model_dir=MODEL_DIR)
 ```
 
 Then using estimators as follows should allow to run your experiment and then you should be able to observe the loss function through tensorboard as shown bellow
