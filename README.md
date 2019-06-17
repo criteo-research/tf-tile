@@ -27,6 +27,8 @@ params={
         'hidden_units': None,
         'n_classes': num_classes
         }
+
+estimator = tf.estimator.Estimator(model_fn=example_model_fn, params=params, model_dir=MODEL_DIR)
 ```
 
 
@@ -67,7 +69,6 @@ params={
         'n_classes': winequality.get_n_classes(),
         }
 
-estimator = tf.estimator.Estimator(model_fn=example_model_fn, params=params, model_dir=MODEL_DIR)
 ```
 
 Then using estimators as follows should allow to run your experiment and then you should be able to observe the loss function through tensorboard as shown bellow
