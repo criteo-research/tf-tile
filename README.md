@@ -15,7 +15,7 @@ FEATURES = ['fixed_acidity','volatile_acidity','citric_acid','residual_sugar','c
 then set the num_buckets (e.g. 10) and num_tilings (e.g. 10) for your feature variables and from tile_feature_columns.py file tile the features:
 
 ```
-tiled_feature_column_list = tiled_feature_columns.get_tiled_feature_columns(num_tilings,num_buckets,winequality.FEATURES)
+tiled_feature_column_list = tiled_feature_columns.get_tiled_feature_columns(num_tilings,num_buckets,FEATURES)
 ```
 
 Here, we provide a template on how to use the tile-coding for your real-valued input data and also we have provide an example, wine_quality_example.py for empirical
