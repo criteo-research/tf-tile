@@ -24,7 +24,7 @@ input_fn_eval = input_func.get_input_fn(evaluation, feature_range, batch_size, n
 # build model function and its necessary params
 example_model_fn          = model_func.model_fn
 tiled_feature_column_list = tiled_feature_columns.get_tiled_feature_columns(num_tilings,num_buckets,winequality.FEATURES)
-params.                   = {
+params                    = {
                             'feature_columns': tiled_feature_column_list,
                             'hidden_units': None,
                             'num_classes': winequality.get_n_classes()
