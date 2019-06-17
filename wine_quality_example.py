@@ -1,29 +1,37 @@
-from typing import Dict,List
-from tensorflow.python.ops import math_ops
-import winequality
+'''
+Using tile-coding technique as an efficient way of sparse-coding for real-valued data
+Here, winequality dataset has been used as an example 
+'''
 import tensorflow as tf
-import numpy as np
-from tensorflow.python.platform import tf_logging as logging
-import bucketize_strategy
-import tilings
+import winequality
 import input_func
-import tiled_feature_columns
 import model_func
+import tiled_feature_columns
+from tensorflow.python.platform import tf_logging as logging
 tf.logging.set_verbosity(tf.logging.INFO)
 
-MODEL_DIR="model_dir"
-numTilings=10
-num_buckets = 10
-batch_size = 32
-example_model_fn = model_func.model_fn
-tiled_feature_column_list = tiled_feature_columns.get_tiled_feature_columns(numTilings,num_buckets,winequality.FEATURES)
-params={
-        'feature_columns': tiled_feature_column_list,
-        'hidden_units': None,
-        'n_classes': winequality.get_n_classes()
-        }
+MODEL_DIR        =  "model_dir"
+num_tilings      =  10
+num_buckets      =  10
+batch_size       =  32
 
+#build input and evaluation functions
+train, evaluation     = winequality.get_train_eval_datasets(winequality.FILE_NAME)
+feature_range    = winequality.get_feature_range()
+input_fn_train = input_func.get_input_fn(train, feature_range, batch_size, num_buckets,num_tilings)
+input_fn_eval = input_func.get_input_fn(evaluation, feature_range, batch_size, num_buckets,num_tilings)
+
+# build model function and its necessary params
+example_model_fn          = model_func.model_fn
+tiled_feature_column_list = tiled_feature_columns.get_tiled_feature_columns(num_tilings,num_buckets,winequality.FEATURES)
+params.                   = {
+                            'feature_columns': tiled_feature_column_list,
+                            'hidden_units': None,
+                            'num_classes': winequality.get_n_classes()
+                            }
+
+#Final training and evaluation. call tensorboard separately to see how loss function evolves
 estimator = tf.estimator.Estimator(model_fn=example_model_fn, params=params, model_dir=MODEL_DIR)
-train_spec= tf.estimator.TrainSpec(input_fn=lambda: input_func.train_input_fn(batch_size,num_buckets,numTilings),max_steps=40000)
-eval_spec = tf.estimator.EvalSpec(input_fn=lambda: input_func.eval_input_fn(batch_size,num_buckets,numTilings),steps=100,start_delay_secs=0,throttle_secs=30)
+train_spec= tf.estimator.TrainSpec(input_fn=input_fn_train,max_steps=40000)
+eval_spec = tf.estimator.EvalSpec(input_fn=input_fn_eval ,steps=100,start_delay_secs=0,throttle_secs=30)
 tf.estimator.train_and_evaluate(estimator,train_spec, eval_spec)
