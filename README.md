@@ -1,7 +1,19 @@
-Tile-Coding Package
+Tile-Coding in TensorFlow ---a sparse-coding tool for generating features from real-valued data
 
+```
 pip install -r requirements
+```
 
+Here, we show how to use tile-coding in your TF code through an example. We use winequality UCI as an example.
+
+The real-valued features are as follows:
+
+```
+FEATURES = [
+'fixed_acidity','volatile_acidity','citric_acid','residual_sugar','chlorides','free_sulfur_dioxide',
+'total_sulfur_dioxide','density','pH','sulphates','alcohol'
+]
+```
 
 Here, we provide a template on how to use the tile-coding for your real-valued input data and also we have provide an example, wine_quality_example.py for empirical
 test on UCI winequality dataset.
