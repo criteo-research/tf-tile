@@ -4,7 +4,14 @@ Tile-Coding in TensorFlow ---a sparse-coding tool for generating features from r
 pip install -r requirements
 ```
 
-Here, we show how to use tile-coding in your TF code through an example. Here, we use winequality UCI as an example.
+Here, we show how to use tile-coding in your TF code through an example. To run the example use:
+
+```
+python winequality_example.py
+```
+
+
+Here, we use winequality UCI as an example.
 
 The real-valued feature-names are as follows:
 
