@@ -19,10 +19,15 @@ The real-valued feature-names are as follows:
 FEATURES = ['fixed_acidity','volatile_acidity','citric_acid','residual_sugar','chlorides','free_sulfur_dioxide', 'total_sulfur_dioxide','density','pH','sulphates','alcohol']
 ```
 
-then set desirable values for num_buckets (e.g. 10) and num_tilings (e.g. 10) and call:
+The first step is to decide how to descritize the real-valued data and choose the number of buckets num_buckets (e.g. 10) and thus boundaries. We assign a class 
+to this step called TileStrategy. The usual strategy is uniform but the user can assign different tiles using data statistics (custom tiles). Then the second stage 
+will be tiling the data given these boundaries and for example num_tilings (e.g. 10) can be used.
+
+For more information on tilings you may visit: https://confluence.criteois.com/display/~h.maei/Tile-Coding%3A+An+Efficient+Sparse-Coding+Method+for+Real-Valued+Data#link-talk-213056
 
 ```
-tiled_feature_column_list = tiled_feature_columns.get_tiled_feature_columns(num_tilings,num_buckets,FEATURES)
+tile_strategy_boundaries = TileStrategy(feature_range).uniform(num_buckets)
+tilings = Tilings(tile_strategy_boundaries,num_tilings)
 ```
 
 Now the tiled_feature_column_list can be passed into params dictionary that will be used in TF estimator class. For example, for the case of calssification we use
