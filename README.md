@@ -50,6 +50,7 @@ params                    = {
 and now everything should be ready for training:
 
 ```
+example_model_fn = model_func.model_fn
 estimator = tf.estimator.Estimator(model_fn=example_model_fn, params=params, model_dir=MODEL_DIR)
 train_spec= tf.estimator.TrainSpec(input_fn=input_fn_train,max_steps=40000)
 eval_spec = tf.estimator.EvalSpec(input_fn=input_fn_eval ,steps=100,start_delay_secs=0,throttle_secs=30)
