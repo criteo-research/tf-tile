@@ -30,36 +30,29 @@ tile_strategy_boundaries = TileStrategy(feature_range).uniform(num_buckets)
 tilings = Tilings(tile_strategy_boundaries,num_tilings)
 ```
 
-Now the tiled_feature_column_list can be passed into params dictionary that will be used in TF estimator class. For example, for the case of calssification we use
-logisitic regression using custom estimators with num_classes, we can set:
+Now following the classical template used in tensorflow for estimator class we compute input functions with tiled features. For example,
 
 ```
-params={
-        'feature_columns': tiled_feature_column_list,
-        'hidden_units': None,
-        'num_classes': num_classes
-        }
+input_fn_train = input_func.get_input_fn(train, batch_size,tilings)
+input_fn_eval = ...
+```
+Once the custom model function is built (again see the example), 
 
+```
+tiled_feature_column_list = TiledFeatureColumns(tilings).get_list()
+params                    = {
+                            'feature_columns': tiled_feature_column_list,
+                            'hidden_units': None,
+                            'num_classes': winequality.get_n_classes()
+                            }
+```
+
+and now everything should be ready for training:
+
+```
 estimator = tf.estimator.Estimator(model_fn=example_model_fn, params=params, model_dir=MODEL_DIR)
-```
-
-Now in the input_fn (created for both train and eval) we tile the real-value data. For example,
-
-```
-train, test = winequality.get_train_eval_datasets(winequality.FILE_NAME)
-feature_range = winequality.get_feature_range()
-def train_input_fn(train,feature_range,batch_size,n_buckets,numTilings):
-
-	#shuffle size is hardcoded and can be defined in config
-
-	dict_features,labels = train.shuffle(2000).batch(batch_size).repeat().make_one_shot_iterator().get_next()
-	features_dict = tilings.get_all_sparse_tilings(dict_features,feature_range,n_buckets,numTilings)
-	
-	return features_dict,labels
-	
-train_spec= tf.estimator.TrainSpec(input_fn=lambda: input_func.train_input_fn(batch_size,num_buckets,numTilings),max_steps=max_steps)
-eval_spec = tf.estimator.EvalSpec(input_fn=lambda: input_func.eval_input_fn(batch_size,num_buckets,numTilings),steps=steps,start_delay_secs=0,throttle_secs=30)
+train_spec= tf.estimator.TrainSpec(input_fn=input_fn_train,max_steps=40000)
+eval_spec = tf.estimator.EvalSpec(input_fn=input_fn_eval ,steps=100,start_delay_secs=0,throttle_secs=30)
 tf.estimator.train_and_evaluate(estimator,train_spec, eval_spec)
-
 ```
 
