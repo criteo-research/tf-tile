@@ -26,7 +26,7 @@ will be tiling the data given these boundaries and for example num_tilings (e.g.
 For more information on tilings you may visit: https://confluence.criteois.com/display/~h.maei/Tile-Coding%3A+An+Efficient+Sparse-Coding+Method+for+Real-Valued+Data#link-talk-213056
 
 ```
-tile_strategy_boundaries = TileStrategy(feature_range).uniform(num_buckets)
+tile_strategy_boundaries = TileStrategy(feature_range).uniform(num_buckets) #or build your own custom tiling strategy, for example using kernel desnsity estimation 
 tilings = Tilings(tile_strategy_boundaries,num_tilings)
 ```
 
