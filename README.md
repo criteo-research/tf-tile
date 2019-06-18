@@ -20,13 +20,17 @@ FEATURES = ['fixed_acidity','volatile_acidity','citric_acid','residual_sugar','c
 ```
 
 The first step is to decide how to descritize the real-valued data and choose the number of buckets num_buckets (e.g. 10) and thus boundaries. We assign a class 
-to this step called TileStrategy. The usual strategy is uniform but the user can assign different tiles using data statistics (custom tiles). Then the second stage 
-will be tiling the data given these boundaries and for example num_tilings (e.g. 10) can be used.
-
-For more information on tilings you may visit: https://confluence.criteois.com/display/~h.maei/Tile-Coding%3A+An+Efficient+Sparse-Coding+Method+for+Real-Valued+Data#link-talk-213056
+to this step called TileStrategy. The usual strategy is uniform but the user can assign different tiles using data statistics (custom tiles).
 
 ```
 tile_strategy_boundaries = TileStrategy(feature_range).uniform(num_buckets) #or build your own custom tiling strategy, for example using kernel desnsity estimation 
+```
+
+
+Then the second stage will be tiling the data given tile_strategy_boundaries, which is a dictionary holding boundaries for each feature. For tilings we can set
+a suitable value for num_tilings (e.g. 10) and  for more information on tilings you may visit: https://confluence.criteois.com/display/~h.maei/Tile-Coding%3A+An+Efficient+Sparse-Coding+Method+for+Real-Valued+Data#link-talk-213056
+
+```
 tilings = Tilings(tile_strategy_boundaries,num_tilings)
 ```
 
