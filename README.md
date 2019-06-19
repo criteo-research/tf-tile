@@ -1,5 +1,7 @@
 Tile-Coding in TensorFlow ---a sparse-coding tool for generating features from real-valued data
 
+![alt text](tf_tile_pic.jpg)
+
 Steps to run the example:
 ```
 1. create virtual environment (for example called tf-tile) for python using conda: a) install conda, then b) conda create -n tf-tile python=3.6 
