@@ -6,7 +6,6 @@ def model_fn(features, labels, mode, params):
     logits = tf.layers.dense(data_in, units=params['num_classes'], activation=tf.nn.sigmoid)
     loss = tf.losses.sparse_softmax_cross_entropy(labels=labels, logits=logits)
 
-    eval_metric = {'loss': loss}
     if mode == tf.contrib.learn.ModeKeys.TRAIN:
         optimizer = tf.train.AdagradOptimizer(learning_rate=0.001)
         train_op = optimizer.minimize(loss, global_step=tf.train.get_global_step())
@@ -30,7 +29,6 @@ def model_fn_sparse(features, labels, mode, params):
 
     loss = tf.losses.sparse_softmax_cross_entropy_with_logits(labels=labels, logits=logits)
 
-    eval_metric = {'loss': loss}
     if mode == tf.contrib.learn.ModeKeys.TRAIN:
         optimizer = tf.train.AdagradOptimizer(learning_rate=0.001)
         train_op = optimizer.minimize(loss, global_step=tf.train.get_global_step())

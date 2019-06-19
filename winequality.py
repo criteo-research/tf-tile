@@ -3,7 +3,6 @@ import typing
 import tensorflow as tf
 
 FILE_NAME = "winequality-red.csv"  # "cleaned-winequality-red.csv"
-LABEL = "category"  # "quality"
 
 FEATURES = [
     'fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar', 'chlorides', 'free_sulfur_dioxide',

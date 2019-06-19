@@ -3,7 +3,7 @@ Here we provide the key functions for tile-coding. To avoid huge dimensionality 
 per feature variable, but using feature-column cross functionality a pair of feature-variables
 also can be tiled, and also higher orders.
 '''
-from typing import Dict, List
+from typing import List
 import tensorflow as tf
 import numpy as np
 from tensorflow.python.ops import math_ops
@@ -17,7 +17,7 @@ class Tilings(object):
     def get_stack_tiling_boundaries(self, boundaries):
         list_boundaries = []
 
-        each_bucket_resolution = [(float)(boundaries[i + 1] - boundaries[i]) / self.num_tilings for i in
+        each_bucket_resolution = [float(boundaries[i + 1] - boundaries[i]) / self.num_tilings for i in
                                   range(len(boundaries) - 1)]
 
         for i in range(self.num_tilings):
@@ -31,7 +31,8 @@ class Tilings(object):
 
         return list_boundaries
 
-    def get_tiles(self, input_data, list_boundaries: List[List[float]]):
+    @staticmethod
+    def _get_tiles(input_data, list_boundaries: List[List[float]]):
         all_tiles = []
         input_tensor = tf.cast(input_data, tf.float64)
         for i, boundaries in enumerate(list_boundaries):
@@ -45,6 +46,6 @@ class Tilings(object):
         features_tiles = dict()
         for feature_name, boundaries in self.tile_strategy_boundaries.items():
             list_boundaries = self.get_stack_tiling_boundaries(boundaries)
-            features_tiles[feature_name] = self.get_tiles(features[feature_name], list_boundaries)
+            features_tiles[feature_name] = Tilings._get_tiles(features[feature_name], list_boundaries)
 
         return features_tiles
