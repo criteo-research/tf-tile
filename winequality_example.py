@@ -3,9 +3,10 @@ Using tile-coding technique as an efficient way of sparse-coding for real-valued
 Here, winequality dataset has been used as an example 
 '''
 import tensorflow as tf
-import winequality
+
 import input_func
 import model_func
+import winequality
 from tile_strategy import TileStrategy
 from tiled_feature_columns import TiledFeatureColumns
 from tilings import Tilings
@@ -18,15 +19,15 @@ num_buckets = 10
 batch_size = 32
 
 # build input and evaluation functions
-train, evaluation = winequality.get_train_eval_datasets(winequality.FILE_NAME)
+train_fn, evaluation_fn = winequality.get_train_eval_datasets_fn(winequality.FILE_NAME)
 feature_range = winequality.get_feature_range()
 # ---
 tile_strategy_boundaries = TileStrategy(feature_range).uniform(num_buckets)
 tilings = Tilings(tile_strategy_boundaries, num_tilings)
 
 # ---
-input_fn_train = input_func.get_input_fn(train, batch_size, tilings)
-input_fn_eval = input_func.get_input_fn(evaluation, batch_size, tilings)
+input_fn_train = input_func.get_input_fn(train_fn, batch_size, tilings)
+input_fn_eval = input_func.get_input_fn(evaluation_fn, batch_size, tilings)
 
 # build model function and its necessary params
 example_model_fn = model_func.model_fn

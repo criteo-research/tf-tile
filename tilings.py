@@ -4,8 +4,9 @@ per feature variable, but using feature-column cross functionality a pair of fea
 also can be tiled, and also higher orders.
 '''
 from typing import List
-import tensorflow as tf
+
 import numpy as np
+import tensorflow as tf
 from tensorflow.python.ops import math_ops
 
 
