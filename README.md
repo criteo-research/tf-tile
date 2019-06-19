@@ -8,16 +8,7 @@ Steps to run the example:
 4. python winequality_example.py 
 ```
 
-Here, we show how to use tile-coding in your TF code through an example. To run the example use:
-
-```
-python winequality_example.py
-```
-
-
-Here, we use winequality UCI as an example.
-
-The real-valued feature-names are as follows:
+Here, we show how to use tile-coding in your TF code through an example. We use winequality UCI as an example, where the real-valued feature-names are as follows:
 
 ```
 FEATURES = ['fixed_acidity','volatile_acidity','citric_acid','residual_sugar','chlorides','free_sulfur_dioxide', 'total_sulfur_dioxide','density','pH','sulphates','alcohol']
