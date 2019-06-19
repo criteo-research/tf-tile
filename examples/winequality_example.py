@@ -7,9 +7,11 @@ import tensorflow as tf
 import input_func
 import model_func
 import winequality
-from tile_strategy import TileStrategy
-from tiled_feature_columns import TiledFeatureColumns
-from tilings import Tilings
+import sys
+sys.path.insert(0, "../")
+from tf_tile.tile_strategy import TileStrategy
+from tf_tile.tiled_feature_columns import TiledFeatureColumns
+from tf_tile.tilings import Tilings
 
 tf.logging.set_verbosity(tf.logging.INFO)
 
