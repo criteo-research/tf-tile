@@ -1,7 +1,11 @@
 Tile-Coding in TensorFlow ---a sparse-coding tool for generating features from real-valued data
 
+Steps to run the example:
 ```
-pip install -r requirements
+1. create virtual environment (for example called tf-yarn) for python using conda: a) install conda, then b) conda create -n tf-tile python=3.6 
+2. conda activate tf-tile
+3. pip install -r requirements
+4. python winequality_example.py 
 ```
 
 Here, we show how to use tile-coding in your TF code through an example. To run the example use:
