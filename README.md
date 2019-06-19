@@ -4,8 +4,9 @@ Steps to run the example:
 ```
 1. create virtual environment (for example called tf-tile) for python using conda: a) install conda, then b) conda create -n tf-tile python=3.6 
 2. conda activate tf-tile
-3. pip install -r requirements
-4. python winequality_example.py 
+3. cd tf-tile directory and  pip install -r requirements
+4. cd examples
+5. python winequality_example.py 
 ```
 
 Here, we show how to use tile-coding in your TF code through an example. We use winequality UCI as an example, where the real-valued feature-names are as follows:
