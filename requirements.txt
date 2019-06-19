@@ -1,7 +1,4 @@
 # Basic packages used
 numpy
-
 tensorflow		# CPU Version of TensorFlow.
 # tensorflow-gpu	# GPU version of TensorFlow.
-
-tensorboard
