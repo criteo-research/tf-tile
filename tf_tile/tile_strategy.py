@@ -4,11 +4,11 @@ here we use uniform
 '''
 
 import numpy as np
-
+from typing import Dict, List
 
 class TileStrategy(object):
 
-    def __init__(self, var_value_range):
+    def __init__(self, var_value_range:Dict[str,List]):
         self.var_value_range = var_value_range
 
     def uniform(self, num_buckets):
@@ -21,6 +21,16 @@ class TileStrategy(object):
             intervals_per_var[key] = np.linspace(v[0], v[1], num_buckets + 1)
 
         return intervals_per_var
+
+    def logRound(self,num_buckets):
+
+        intervals_per_var = dict()
+
+        for key, v in self.var_value_range.items():
+            intervals_per_var[key] = [np.exp(x) for x in np.linspace(np.log(v[0]), np.log(v[1]), num_buckets + 1)]
+
+        return intervals_per_var
+
 
     def custom(num_buckets_per_var):
         '''
