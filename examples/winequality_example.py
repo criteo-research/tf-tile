@@ -6,8 +6,6 @@ import os
 import sys
 import tensorflow as tf
 
-import input_func
-import model_func
 import winequality
 
 sys.path.append(os.path.join(os.path.dirname(__file__), os.pardir))
