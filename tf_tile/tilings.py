@@ -1,8 +1,7 @@
-'''
-Here we provide the key functions for tile-coding. To avoid huge dimensionality expansion, we have tiled
-per feature variable, but using feature-column cross functionality a pair of feature-variables
-also can be tiled, and also higher orders.
-'''
+# Here we provide the key functions for tile-coding. To avoid huge dimensionality expansion, we have tiled
+# per feature variable, but using feature-column cross functionality a pair of feature-variables
+# also can be tiled, and also higher orders.
+
 from typing import List
 
 import numpy as np
@@ -15,22 +14,11 @@ class Tilings(object):
         self.num_tilings = num_tilings
         self.tile_strategy_boundaries = tile_strategy_boundaries
 
-    def get_stack_tiling_boundaries(self, boundaries):
-        list_boundaries = []
-
-        each_bucket_resolution = [float(boundaries[i + 1] - boundaries[i]) / self.num_tilings for i in
-                                  range(len(boundaries) - 1)]
-
-        for i in range(self.num_tilings):
-            shift_val = []
-            for j in range(len(each_bucket_resolution)):
-                shift_val.append(i * each_bucket_resolution[j])
-
-            shift_val.append(0)
-
-            list_boundaries.append(list(np.array(boundaries) + np.array(shift_val)))
-
-        return list_boundaries
+    def _get_stack_tiling_boundaries(self, boundaries) -> List[List[float]]:
+        boundaries = np.array(boundaries)
+        each_bucket_resolution = np.array(
+            [float(boundaries[i + 1] - boundaries[i]) / self.num_tilings for i in range(len(boundaries) - 1)] + [0])
+        return [list(boundaries + i * each_bucket_resolution) for i in range(self.num_tilings)]
 
     @staticmethod
     def _get_tiles(input_data, list_boundaries: List[List[float]]):
@@ -46,7 +34,7 @@ class Tilings(object):
     def get_features_tiles(self, features):
         features_tiles = dict()
         for feature_name, boundaries in self.tile_strategy_boundaries.items():
-            list_boundaries = self.get_stack_tiling_boundaries(boundaries)
+            list_boundaries = self._get_stack_tiling_boundaries(boundaries)
             features_tiles[feature_name] = Tilings._get_tiles(features[feature_name], list_boundaries)
 
         return features_tiles
