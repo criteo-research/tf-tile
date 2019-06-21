@@ -1,8 +1,7 @@
-'''
-Here we provide the key functions for tile-coding. To avoid huge dimensionality expansion, we have tiled
-per feature variable, but using feature-column cross functionality a pair of feature-variables
-also can be tiled, and also higher orders.
-'''
+# Here we provide the key functions for tile-coding. To avoid huge dimensionality expansion, we have tiled
+# per feature variable, but using feature-column cross functionality a pair of feature-variables
+# also can be tiled, and also higher orders.
+
 from typing import List
 
 import numpy as np

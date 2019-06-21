@@ -1,20 +1,17 @@
-'''
-you can add your own straget for tile-strategy--bucketization/discretization of data. 
-here we use uniform
-'''
+# you can add your own straget for tile-strategy--bucketization/discretization of data.
+# here we use uniform
 
 import numpy as np
 from typing import Dict, List
 
+
 class TileStrategy(object):
 
-    def __init__(self, var_value_range:Dict[str,List]):
+    def __init__(self, var_value_range: Dict[str, List]):
         self.var_value_range = var_value_range
 
     def uniform(self, num_buckets):
-        '''
-        all vars get the same number of buckets
-        '''
+        # all vars get the same number of buckets
         intervals_per_var = dict()
 
         for key, v in self.var_value_range.items():
@@ -22,7 +19,7 @@ class TileStrategy(object):
 
         return intervals_per_var
 
-    def logRound(self,num_buckets):
+    def log_round(self, num_buckets):
 
         intervals_per_var = dict()
 
@@ -31,12 +28,8 @@ class TileStrategy(object):
 
         return intervals_per_var
 
-
-    def custom(num_buckets_per_var):
-        '''
-        you can define a different number of buckets for each variable and also select the
-        intervals non-uniformly through your own policy and data-distribution--for example using
-        kernel density estimation methods
-
-        '''
+    def custom(self, num_buckets):
+        # you can define a different number of buckets for each variable and also select the
+        # intervals non-uniformly through your own policy and data-distribution--for example using
+        # kernel density estimation methods
         pass

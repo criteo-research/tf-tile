@@ -15,10 +15,10 @@ class TiledFeatureColumns:
                 tf.feature_column.indicator_column(
                     tf.feature_column.categorical_column_with_identity(
                         key,
-                        num_buckets=self.num_tilings * len(self.tile_strategy_boundaries[key]) 
+                        num_buckets=self.num_tilings * len(self.tile_strategy_boundaries[key])
                     )
                 )
-                )
+            )
         return tiled_feature_column_list
 
 
