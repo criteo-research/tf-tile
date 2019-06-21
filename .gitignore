@@ -1,0 +1,8 @@
+*.pyc
+.idea
+.pytest_cache
+tmp_conda
+*.ini
+.coverage
+*-test.xml
+.mypy_cache
