@@ -30,7 +30,7 @@ def get_train_eval_datasets_fn(
         return bucket_id < int(train_fraction * num_buckets)
 
     def in_test_set(*row):
-        return not in_training_set(*row)
+        return ~in_training_set(*row)
 
     def get_data_fn(filter_fn):
         def fn():
