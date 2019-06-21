@@ -35,7 +35,7 @@ tilings = Tilings(tile_strategy_boundaries,num_tilings)
 Now following the classical template used in tensorflow for estimator class we compute input functions with tiled features. For example,
 
 ```
-input_fn_train = input_func.get_input_fn(train, batch_size,tilings)
+input_fn_train = get_input_fn(train, batch_size,tilings)
 input_fn_eval = ...
 ```
 Once the custom model function is built (again see the example), 
@@ -52,8 +52,7 @@ params                    = {
 and now everything should be ready for training:
 
 ```
-example_model_fn = model_func.model_fn
-estimator = tf.estimator.Estimator(model_fn=example_model_fn, params=params, model_dir=MODEL_DIR)
+estimator = tf.estimator.Estimator(model_fn=model_fn, params=params, model_dir=MODEL_DIR)
 train_spec= tf.estimator.TrainSpec(input_fn=input_fn_train,max_steps=40000)
 eval_spec = tf.estimator.EvalSpec(input_fn=input_fn_eval ,steps=100,start_delay_secs=0,throttle_secs=30)
 tf.estimator.train_and_evaluate(estimator,train_spec, eval_spec)
