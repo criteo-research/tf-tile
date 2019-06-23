@@ -27,7 +27,7 @@ class Tilings(object):
         for i, boundaries in enumerate(list_boundaries):
             bucketized_tensor = math_ops.bucketize(input_tensor, boundaries)
             bucketized_tensor = tf.reshape(bucketized_tensor, (-1, 1))
-            bucketized_tensor = tf.math.add(bucketized_tensor, i * (len(boundaries) - 1))  # added this
+            bucketized_tensor = tf.math.add(bucketized_tensor, i * (len(boundaries) - 1)) 
             all_tiles.append(bucketized_tensor)
         return tf.concat(all_tiles, axis=1)
 
