@@ -28,7 +28,9 @@ $ cd tf-tile
 $ pip install -r requirements.txt
 ```
 
-2) You can now test this out by trying to run one of our examples!
+2) Download winequality-red.csv from the Wine Quality dataset at UCI ML repository (https://archive.ics.uci.edu/ml/datasets/Wine+Quality).
+
+3) You can now test this out by trying to run one of our examples!
 ```bash
 $ cd examples
 $ python winequality_example.py
