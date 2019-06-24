@@ -1,7 +1,8 @@
 tf-tile
 =======
+Tile-Coding in TensorFlow: a sparse-coding tool for generating features from real-valued data)
 
-Tile-Coding in TensorFlow ---a sparse-coding tool for generating features from real-valued data
+What is Tile-Coding? 
 
 ![alt text](tf_tile_pic.jpg)
 
