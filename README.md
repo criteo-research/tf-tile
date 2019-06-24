@@ -2,7 +2,11 @@ tf-tile
 =======
 Tile-Coding in TensorFlow: a sparse-coding tool for generating features from real-valued data)
 
-What is Tile-Coding? 
+What is Tile-Coding? When it comes to real-valued data discretization (also called bucketization) of data is a common choice to normalize and tranform data to a
+a feature vector that is ready to be used in classical machine learning methods such as logistic regression and recently the first layer of 
+deep neural networks (DNNs). However, bucketizing the input data has several drawbacks as follows: a) It can have a large prediction error due to the resolution 
+of bucket-size. b) The dimensionality of feature-vector, and thus model-size increases if a much lower resolution has been selected for the bucket-size, b)
+It lacks generalization as we explain  in the figure bellow.
 
 ![alt text](tf_tile_pic.jpg)
 
