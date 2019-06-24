@@ -1,23 +1,47 @@
+tf-tile
+=======
+
 Tile-Coding in TensorFlow ---a sparse-coding tool for generating features from real-valued data
 
 ![alt text](tf_tile_pic.jpg)
 
-Steps to run the example:
-```
-1. create virtual environment (for example called tf-tile) for python using conda: a) install conda, then b) conda create -n tf-tile python=3.6 
-2. conda activate tf-tile
-3. cd tf-tile directory and  pip install -r requirements
-4. cd examples
-5. python winequality_example.py 
+Installation
+------------
+
+Create virtual environment (for example called tf-tile) for python using conda:
+* [Install conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
+
+Then run:
+```bash
+$ conda create -n tf-tile python=3.6
+$ conda activate tf-tile
+$ cd tf-tile
+$ pip install -r requirements.txt
 ```
 
-Here, we show how to use tile-coding in your TF code through an example. We use winequality UCI as an example, where the real-valued feature-names are as follows:
+You can now test this out by trying to run one of our examples!
+```bash
+$ cd examples
+$ python winequality_example.py
+...
+I0624 10:21:46.237035 4663645632 session_manager.py:500] Running local_init_op.
+I0624 10:21:46.257230 4663645632 session_manager.py:502] Done running local_init_op.
+I0624 10:21:46.908173 4663645632 basic_session_run_hooks.py:606] Saving checkpoints for 0 into model_dir/model.ckpt.
+I0624 10:21:48.018400 4663645632 basic_session_run_hooks.py:262] loss = 2.1749778, step = 1
+I0624 10:21:48.691524 4663645632 basic_session_run_hooks.py:692] global_step/sec: 147.251
+...
+```
+
+Winequality example
+-------------------
+
+Here, we show how to use tile-coding in your TF code through an example. We use [winequality UCI](https://archive.ics.uci.edu/ml/datasets/Wine+Quality) as an example, where the real-valued feature-names are as follows:
 
 ```
 FEATURES = ['fixed_acidity','volatile_acidity','citric_acid','residual_sugar','chlorides','free_sulfur_dioxide', 'total_sulfur_dioxide','density','pH','sulphates','alcohol']
 ```
 
-The first step is to decide how to descritize the real-valued data and choose the number of buckets num_buckets (e.g. 10) and thus boundaries. We assign a class 
+The first step is to decide how to discretize the real-valued data and choose the number of buckets num_buckets (e.g. 10) and thus boundaries. We assign a class 
 to this step called TileStrategy. The usual strategy is uniform but the user can assign different tiles using data statistics (custom tiles).
 
 ```
@@ -58,3 +82,4 @@ eval_spec = tf.estimator.EvalSpec(input_fn=input_fn_eval ,steps=100,start_delay_
 tf.estimator.train_and_evaluate(estimator,train_spec, eval_spec)
 ```
 
+You can see the full example here: [examples/winequality_example.py](examples/winequality_example.py)
