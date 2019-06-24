@@ -16,7 +16,11 @@ Installation
 Create virtual environment (for example called tf-tile) for python using conda:
 * [Install conda](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html)
 
-Then run:
+Steps to run the example
+-----------------------
+
+1) set up the environment and dependencies:
+
 ```bash
 $ conda create -n tf-tile python=3.6
 $ conda activate tf-tile
@@ -24,7 +28,7 @@ $ cd tf-tile
 $ pip install -r requirements.txt
 ```
 
-You can now test this out by trying to run one of our examples!
+2) You can now test this out by trying to run one of our examples!
 ```bash
 $ cd examples
 $ python winequality_example.py
