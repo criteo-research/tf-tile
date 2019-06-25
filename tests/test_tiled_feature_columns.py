@@ -1,3 +1,7 @@
+'''
+Test the custumed tiled-feature-columns and make sure it works in conjunction with input data fed
+into the first layer of neural networks (or logistic regression model)
+'''
 import pytest
 import tensorflow as tf
 import numpy as np
