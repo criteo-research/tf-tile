@@ -1,7 +1,7 @@
 '''
-TEST CASE: TO BE COMPLETED
+Test case for tilings.py. This is the most crucial test case where it shows which tile indices will be activated
+given the num_tilings and tile-strategy
 '''
-
 import pytest
 import tensorflow as tf
 import numpy as np
