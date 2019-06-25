@@ -18,7 +18,7 @@ def test_tilings():
 	num_tilings = 3
 	feature_name = 'x'
 	feature_range ={feature_name: [1,5]}
-	dataset =tf.data.Dataset.from_tensor_slices(tf.constant([[0.9],[1.4]])) #-> Tuple[Callable[[], tf.data.Dataset], Callable[[], tf.data.Dataset]]:
+	dataset =tf.data.Dataset.from_tensor_slices(tf.constant([[0.9],[1.4]]))
 	dataset = dataset.make_one_shot_iterator().get_next()
 	data_dict ={feature_name:dataset}
 	tile_strategy_boundaries = TileStrategy(feature_range).uniform(num_buckets)
