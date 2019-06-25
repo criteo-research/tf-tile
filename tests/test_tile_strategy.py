@@ -1,3 +1,7 @@
+'''
+Test the tiling strategy. The test case here is for the case of uniform tiling--uniform bucketization given the
+range of input variables and also the number of buckets.
+'''
 import pytest
 import tensorflow as tf
 import numpy as np
