@@ -19,8 +19,3 @@ def test_tile_strategy():
 	data_dict ={feature_name:dataset}
 	tile_strategy_boundaries = TileStrategy(feature_range).uniform(num_buckets)
 	assert np.array_equal(tile_strategy_boundaries['x'],range(1,6)) 
-
-
-
-
-
