@@ -43,31 +43,29 @@ I0624 10:21:48.691524 4663645632 basic_session_run_hooks.py:692] global_step/sec
 ...
 ```
 
-Winequality example
--------------------
+Winequality example: step-by-step walk-through
+----------------------------------------------
 
 Here, we show how to use tile-coding in your TF code through an example. We use [winequality UCI](https://archive.ics.uci.edu/ml/datasets/Wine+Quality) as an example, where the real-valued feature-names are as follows:
 
 ```
 FEATURES = ['fixed_acidity','volatile_acidity','citric_acid','residual_sugar','chlorides','free_sulfur_dioxide', 'total_sulfur_dioxide','density','pH','sulphates','alcohol']
 ```
-
-The first step is to decide how to discretize the real-valued data and choose the number of buckets num_buckets (e.g. 10) and thus boundaries. We assign a class 
-to this step called TileStrategy. The usual strategy is uniform but the user can assign different tiles using data statistics (custom tiles).
+1) Identify the range of feature values. For example "fixed_acidity" can range in the interval [4.6, 15.9]
+2) Given the distribution of each feature variable decide how to discretize them and choose the number of buckets. For the winequality example we choose a uniform strategy with num_buckets= 10 
 
 ```
 tile_strategy_boundaries = TileStrategy(feature_range).uniform(num_buckets) #or build your own custom tiling strategy, for example using kernel desnsity estimation 
 ```
 
-
-Then the second stage will be tiling the data given tile_strategy_boundaries, which is a dictionary holding boundaries for each feature. For tilings we can set
-a suitable value for num_tilings (e.g. 10) and  for more information on tilings you may visit: https://confluence.criteois.com/display/~h.maei/Tile-Coding%3A+An+Efficient+Sparse-Coding+Method+for+Real-Valued+Data#link-talk-213056
+3)  Now we would need to conduct tilings step; that is, using tile_strategy_boundaries, which is a dictionary holding boundaries for each feature, we would need to generate
+multiple tiling overlaps according to tilings proceudre which as been described in  https://confluence.criteois.com/display/~h.maei/Tile-Coding%3A+An+Efficient+Sparse-Coding+Method+for+Real-Valued+Data#link-talk-213056
 
 ```
 tilings = Tilings(tile_strategy_boundaries,num_tilings)
 ```
 
-Now following the classical template used in tensorflow for estimator class we compute input functions with tiled features. For example,
+4)  Now following the classical template used in tensorflow for estimator class we compute input functions with tiled features. For example,
 
 ```
 input_fn_train = get_input_fn(train, batch_size,tilings)
