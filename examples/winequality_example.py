@@ -52,7 +52,7 @@ def model_fn(features, labels, mode, params):
 
 
 def main():
-    MODEL_DIR = "model_dir"
+    model_dir = "model_dir"
     num_tilings = 10
     num_buckets = 10
     batch_size = 32
@@ -77,7 +77,7 @@ def main():
     }
 
     # Final training and evaluation. call tensorboard separately to see how loss function evolves
-    estimator = tf.estimator.Estimator(model_fn=model_fn, params=params, model_dir=MODEL_DIR)
+    estimator = tf.estimator.Estimator(model_fn=model_fn, params=params, model_dir=model_dir)
     train_spec = tf.estimator.TrainSpec(input_fn=input_fn_train, max_steps=40000)
     eval_spec = tf.estimator.EvalSpec(input_fn=input_fn_eval, steps=100, start_delay_secs=0, throttle_secs=30)
     tf.estimator.train_and_evaluate(estimator, train_spec, eval_spec)
