@@ -2,7 +2,7 @@ from typing import Tuple, Callable
 
 import tensorflow as tf
 
-FILE_NAME = "winequality-red.csv"  # "cleaned-winequality-red.csv"
+FILE_NAME = "winequality-red.csv"
 
 FEATURES = [
     'fixed_acidity', 'volatile_acidity', 'citric_acid', 'residual_sugar', 'chlorides', 'free_sulfur_dioxide',
