@@ -2,11 +2,9 @@
 Test the custumed tiled-feature-columns and make sure it works in conjunction with input data fed
 into the first layer of neural networks (or logistic regression model)
 '''
-import pytest
-import tensorflow as tf
+
 import numpy as np
-import os, sys
-sys.path.append(os.path.join(os.path.dirname(__file__),os.pardir))
+import tensorflow as tf
 
 from tf_tile.tiled_feature_columns import TiledFeatureColumns
 from tf_tile.tile_strategy import TileStrategy

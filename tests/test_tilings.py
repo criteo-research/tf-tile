@@ -2,13 +2,10 @@
 Test case for tilings.py. This is the most crucial test case where it shows which tile indices will be activated
 given the num_tilings and tile-strategy
 '''
-import pytest
-import tensorflow as tf
-import numpy as np
-import os, sys
-sys.path.append(os.path.join(os.path.dirname(__file__),os.pardir))
 
-from tf_tile.tiled_feature_columns import TiledFeatureColumns
+import numpy as np
+import tensorflow as tf
+
 from tf_tile.tile_strategy import TileStrategy
 from tf_tile.tilings import Tilings
 
