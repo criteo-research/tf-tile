@@ -27,10 +27,10 @@ This *sparse-coding  *not only normalizes the input data but also projects the
 predicting highly non-linear functions (please see a toy example bellow). However, bucketizing the input data has
 several drawbacks as follows, which we aim  to solve in this blog: 
 
-1) It can have a large prediction error due to the resolution of bucket-size.
-2) The dimensionality of feature-vector, and thus model-size, increases if a much lower resolution has been selected
+1. It can have a large prediction error due to the resolution of bucket-size.
+2. The dimensionality of feature-vector, and thus model-size, increases if a much lower resolution has been selected
 for the bucket-size.
-3) It lacks generalization as we explain in Fig. 1.
+3. It lacks generalization as we explain in Fig. 1.
 
 An alternative idea to address the above issues is what is called as *Tile-Coding–a sparse-coding method that
 generalizes to neighboring points.* Fig.1 shows how tile-coding works in 1-dimension. Consider a feature
@@ -124,6 +124,5 @@ rate when tile-coding  is used. We think it is due to its ability to generalize
 References
 ----------
 
-1) Albus J S (1975), A new approach to manipulator control: The cerebellar model articulation controller (CMAC).
-*Trans. ASME, J. Dyn. Syst., Meas., Contr.* 97:220–227
-2) Sutton and Barto (2018), Introduction to Reinforcement Learning. MIT Press.
+1. Albus J S (1975), A new approach to manipulator control: The cerebellar model articulation controller (CMAC). *Trans. ASME, J. Dyn. Syst., Meas., Contr.* 97:220–227
+2. Sutton and Barto (2018), Introduction to Reinforcement Learning. MIT Press.
