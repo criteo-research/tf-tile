@@ -8,7 +8,7 @@ deep neural networks (DNNs). However, bucketizing the input data has several dra
 of bucket-size. b) The dimensionality of feature-vector, and thus model-size increases if a much lower resolution has been selected for the bucket-size, b)
 It lacks generalization as we explain  in the figure bellow.
 
-![alt text](tf_tile_pic.jpg)
+![alt text](doc/assets/tf_tile_pic.jpg)
 
 Installation
 ------------
@@ -59,7 +59,8 @@ tile_strategy_boundaries = TileStrategy(feature_range).uniform(num_buckets) #or 
 ```
 
 3)  Now we would need to conduct tilings step; that is, using tile_strategy_boundaries, which is a dictionary holding boundaries for each feature, we would need to generate
-multiple tiling overlaps according to tilings proceudre which as been described in  https://confluence.criteois.com/display/~h.maei/Tile-Coding%3A+An+Efficient+Sparse-Coding+Method+for+Real-Valued+Data#link-talk-213056
+multiple tiling overlaps according to tilings procedure which as been described in
+[Tile: Coding An Efficient Sparse Coding Method for Real Valued Data](doc/Tile-Coding-An-Efficient-Sparse-Coding-Method-for-Real-Valued-Data.md).
 
 ```
 tilings = Tilings(tile_strategy_boundaries,num_tilings)
