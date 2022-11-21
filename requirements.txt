@@ -1,4 +1,4 @@
 # Basic packages used
 numpy
-tensorflow==1.15		# CPU Version of TensorFlow.
+tensorflow==2.9.3		# CPU Version of TensorFlow.
 # tensorflow-gpu==1.15	# GPU version of TensorFlow.
